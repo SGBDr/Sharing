@@ -1,0 +1,8 @@
+{
+  "name": "Android_Map",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

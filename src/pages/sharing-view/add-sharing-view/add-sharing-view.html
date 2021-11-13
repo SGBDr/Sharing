@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Add S H A R I N G</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="OnAddSharing(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Title</ion-label>
+        <ion-input type="text" name="title" ngModel aria-required="true"></ion-input>
+      </ion-item>
+      <br>
+      <div class="form-group" align="left" style="padding-left: 17px;">
+        <label for="content" style="color: rgb(148, 147, 147);">Description</label><br>
+        <textarea id="content" name="content" cols="30" rows="6" style="border: none;border-bottom : 1.5px solid rgb(148, 147, 147);padding:2px;" ngModel aria-required="true">description of the Sharing</textarea>
+      </div>
+      <ion-item>
+        <ion-label floating>Some Link(like a source)</ion-label>
+        <ion-input type="text" name="link" ngModel>description of the Sharing</ion-input>
+      </ion-item>
+      <br>
+      <ion-searchbar id="search" placeholder="Search Music" (ionInput)="getMusic($event)"></ion-searchbar>
+      
+      <div class="card-background-page">
+          <div style="text-align: center;" *ngIf="searching === 'yes'">
+            Searching ...
+          </div>
+          <div *ngIf="music === null && searching === 'no'">
+            No results match with your input
+          </div>
+          <ion-card *ngIf="music != null && searching === 'no'">
+            <img [src]="music[3]"/>
+            <div class="card-title">{{music[1]}}</div>
+            <div class="card-subtitle">
+              {{music[0]}}
+              <br><br>
+              <ion-icon style="background-color: black;padding: 20px;border-radius: 100%;box-shadow: whitesmoke 1px 1.25px 0.5px 1px;" (click)="OnPlayPrev(music[2])" [name]="play_prev"></ion-icon>
+            </div>
+          </ion-card>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="3">
+              <button ion-button (click)="Previous()" [disabled]="music === null || pointer === 0" color="secondary" shape="round">
+                Previous
+              </button>
+            </ion-col>
+            <ion-col size="6"></ion-col>
+            <ion-col size="3">
+              <button ion-button (click)="Next()" [disabled]="music === null || pointer === musics.length - 1"  color="secondary"  shape="round">
+                Next
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+        <audio id="audio" autoplay hidden="true" src=""></audio>
+      <br>
+    </ion-list>
+    <small style="color:red">{{error}}</small>
+    <button ion-button type="submit" [disabled]="music === null"  color="secondary">Add</button>
+  </form>
+</ion-content>

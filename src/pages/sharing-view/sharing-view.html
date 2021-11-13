@@ -1,0 +1,75 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="6">S H A R I N G</ion-col>
+          <ion-col class="right" size="2">
+            <ion-icon name="add" (click)="AddShare()" [hidden]="!authservice.isAuth" style="color:blue" color="blue"></ion-icon>
+          </ion-col>
+          <ion-col class="right" size="2">
+            <ion-icon name="search" (click)="onSearch()" [hidden]="!authservice.isAuth" style="color:blue" color="blue"></ion-icon>
+          </ion-col>
+          <ion-col class="right" size="2">
+            <ion-icon name="refresh" (click)="onRefresh()" [hidden]="!authservice.isAuth" style="color:blue" color="blue"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-title>
+    <ion-searchbar id="search" [hidden]="ss == false" [(ngModel)]="search_content" placeholder="Search Share" (ionInput)="getShare($event)"></ion-searchbar>
+  </ion-navbar>
+</ion-header>
+
+<audio id="audio" autoplay src="" hidden></audio>
+
+<ion-content padding>
+  <div class="alert" *ngIf="!auth">
+    Sign In First
+  </div>
+  <div>
+
+    <div *ngIf="shares.length == 0" style="margin-top:25%; padding: 15%; background-color: whitesmoke">
+      No S H A R I N G matchs with your input
+    </div>
+
+    <ion-card *ngFor="let sh of shares">
+      <img [src]="sh.image"/>
+      <ion-card-content>
+        <small>{{sh.author}} </small>
+        <button style="margin-left:10px; height: 20px" ion-button small icon-start (click)="OnSong(sh.music, sh.id)">
+          <ion-icon [name]="tabPlay[sh.id - 1]"></ion-icon> {{tabPlay[sh.id - 1]}} Song
+        </button>
+        
+        <hr>
+        <ion-card-title>
+          {{sh.title}}
+        </ion-card-title>
+        <p>
+          {{sh.content}}
+        </p>
+        <small style="text-align: right">{{sh.date}}</small>
+      </ion-card-content>
+      <hr>
+      <ion-grid class="ion-no-padding ion-no-margin" fixed>
+        <ion-row class="ion-no-padding ion-no-margin">
+          <ion-col class="ion-no-padding ion-no-margin" size="2">
+            <button (click)="OnLike(sh.id)" [disabled]="sh.liker.indexOf(authservice.user.user.email.split('@')[0]) != -1" ion-button small icon-start color="primary">
+              <ion-icon name="like"></ion-icon>
+              Like {{sh.like}}
+            </button>
+          </ion-col>
+          <ion-col class="ion-no-padding ion-no-margin" size="2">
+            <button (click)="OnDislike(sh.id)" [disabled]="sh.hater.indexOf(authservice.user.user.email.split('@')[0]) != -1" ion-button small icon-start color="danger">
+              <ion-icon name="like"></ion-icon>
+              Dislike {{sh.dislike}}
+            </button>
+          </ion-col>
+          <ion-col size="8"></ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+
+  </div>
+
+</ion-content>

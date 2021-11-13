@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Modify Profil</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form #f="ngForm" (ngSubmit)="OnModify(f)">
+      <ion-list>
+        <ion-item>
+          <ion-label floating>New Email</ion-label>
+          <ion-input type="email" name="email" ngModel></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>New Password</ion-label>
+          <ion-input type="password" name="password" ngModel></ion-input>
+        </ion-item>
+        <br>
+      </ion-list>
+      <small class="warning">Leave with nothing inside if you don't want to modify something</small>
+      <button ion-button type="submit" color="primary">Modify</button>
+    </form>
+</ion-content>
